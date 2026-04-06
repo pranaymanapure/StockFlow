@@ -90,3 +90,55 @@ def create_product():
         return {"error": "Failed to create product", "details": str(e)}, 500
 
     return {"message": "Product created", "product_id": product.id}, 201
+# 🗄️ Part 2: Database Design
+
+## 📊 Core Tables
+
+- Companies
+- Warehouses
+- Products
+- Inventory
+- Inventory Logs
+- Suppliers
+- Supplier Products
+- Product Bundles
+
+---
+
+## 🔗 Relationships
+
+- Company → Warehouses (1:N)
+- Company → Products (1:N)
+- Products ↔ Warehouses (M:N via Inventory)
+- Products ↔ Suppliers (M:N)
+- Inventory → Logs (1:N)
+- Products → Bundles (Self-referencing)
+
+---
+
+## 🧠 Key Design Decisions
+
+- SKU is unique per company to avoid duplication conflicts
+- Separate Inventory table enables multi-warehouse support
+- Inventory logs provide full audit tracking of stock changes
+- NUMERIC(10,2) used for price to avoid floating-point errors
+- CHECK constraints prevent invalid data (e.g., negative stock)
+- Low-stock threshold stored per product for flexibility
+
+---
+
+## 📄 Schema
+
+Full database schema is available here:
+
+👉 `/database/schema.sql`
+
+---
+
+## ❓ Open Questions
+
+- Is SKU unique globally or per company?
+- Can a product have multiple suppliers?
+- What defines "recent sales activity"?
+- Are bundles nested?
+- Is multi-currency required?
