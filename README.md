@@ -90,7 +90,9 @@ def create_product():
         return {"error": "Failed to create product", "details": str(e)}, 500
 
     return {"message": "Product created", "product_id": product.id}, 201
-# 🗄️ Part 2: Database Design
+
+```
+ 🗄️ Part 2: Database Design
 
 ## 📊 Core Tables
 
